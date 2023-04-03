@@ -1,2 +1,3 @@
-# organizer-pc027
-CS111 Final Project
+# Organizer DSL
+SP23 CS111 Final Project
+

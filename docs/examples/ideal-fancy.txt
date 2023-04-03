@@ -1,0 +1,27 @@
+example program 1: synonymized keywords
+input assumptions: text only.
+
+"settings" portion of the program:
+- maximum segment length (self-explanatory)
+- synonymize
+    - the "-" is a placeholder for a keyword
+    - consider words that match the synonymize patterns the same as the matched keyword.
+/////////////////////////////
+source: essay_brainstorm.txt
+
+keywords:
+- thesis, conclusion
+- produce
+- neoliberal
+
+settings:
+maximum segment length = 2
+synonymize = "-s", "-ed", "pre-"
+file type = pdf
+
+/////////////////////////////
+output: "organizer-result.pdf" file within the same folder as essay_brainstorm.txt
+See sample-output-fancy for expected info within this file.
+
+Notice that even in uncategorized, the info is presented in 2-line segments.
+Tiebreaking for the line that would go into the "produce" part: alternate between lines (1)before and (2)after.
