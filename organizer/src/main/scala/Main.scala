@@ -1,11 +1,14 @@
-import org.apache.poi.xwpf.usermodel.XWPFDocument
+import org.apache.poi.xwpf.usermodel._
 import scala.io.Source
+import scala.io.BufferedSource
 import Console.{RED, RESET}
 import util.control.Breaks._
 
+import java.io.InputStream
+import scala.collection.JavaConverters._
+
 import docorg.parser._
 import docorg.ir._
-// import org.apache.poi.xwpf.XWPFTestDataSamples
 
 
 /** Format an error message */
@@ -29,20 +32,24 @@ def runFile(filename: String): Unit =
 
 @main
 def main(args: String*): Unit =
-  runFile(args(0))
+  // BasicConfigurator.configure();
 
-// @main def hello: Unit =
-//   println("Hello, New York!")
-//   println(msg)
-//   parseSimpleDocument
+  // val logger = Logger.getLogger(this.getClass.getName)
+  // logger.info("###### logging #####")
 
-// def msg = "I was compiled by Scala 3. :)"
+  parseSimpleDocument
+  // runFile(args(0))
 
-// def parseSimpleDocument: Unit = {
-//   // todo: open a word document and extract words
-//   // val doc: XWPFDocument = XWPFTestDataSamples.openSampleDocument("sample.docx")
-//   // val docExtractor: XWPFWordExtractor = new XWPFWordExtractor(doc) {
-//   //   String text = extractor.getText();
-//   //   println(text)
-//   // }
-// }
+def parseSimpleDocument: Unit = {
+  // Java's way of creating an InputStream
+  val javaStream: InputStream = main.getClass.getResourceAsStream("sample-input.docx")
+  val doc: XWPFDocument = new XWPFDocument(javaStream)
+
+  // Paragraphs are sections of information delimited by new lines
+  val paragraphs: List[XWPFParagraph] = doc.getParagraphs().asScala.toList
+  println(paragraphs.apply(5).getText())
+
+  // close streams for original document
+  doc.close()
+  javaStream.close()
+}
