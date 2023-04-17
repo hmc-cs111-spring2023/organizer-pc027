@@ -14,20 +14,20 @@ object DocumentParser extends JavaTokenParsers with PackratParsers {
   // combine to parse entire input program
   def combineSections: Parser[Configurations] = {
     source ~ (("keywords:" ~> wordList)) ^^ {
-        case (path, fileType) ~ listOfWords => 
-            Configurations(path, fileType, listOfWords)
+        case (path) ~ listOfWords => 
+            Configurations(path, listOfWords)
     }
   }
 
   // parses the bulleted list into a list of keywords
   // and then use helper function to create segments
-  def wordList: Parser[Keywords] = {
+  def wordList: Parser[List[String]] = {
     rep("- " ~> nonEmptyString) ^^ {
       case words => {
         var keys = ListBuffer.empty[String]
         words.foreach(keyword => keys.append(keyword))
 
-        Keywords(keys.to(List))
+        keys.to(List)
       }
     }
   }
@@ -37,8 +37,8 @@ object DocumentParser extends JavaTokenParsers with PackratParsers {
 
   // parses source to extract file information + format to output
   // "source: essay_brainstorm.txt"
-  def source: Parser[(FilePath, Format)] = 
-    "source: " ~> ("[^.]*".r) ~ ("." ~> "txt"|"docx") ^^ {
-        case filePath ~ format => (FilePath(filePath), Format(format))
+  def source: Parser[String] = 
+    "source: " ~> ("[^.]*".r) ~ ("." ~> ("txt"|"docx")) ^^ {
+        case filePath ~ format => filePath + "." + format
     }
 }

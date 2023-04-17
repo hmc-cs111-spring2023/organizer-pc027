@@ -1,21 +1,15 @@
-package docorg.ir
+package docorg.semantics
 
 import org.apache.poi.xwpf.usermodel._
 import java.io.InputStream
 import scala.collection.JavaConverters._
 import scala.collection.mutable.{Map, ArrayBuffer}
 
-// def eval(sec: Section): String = sec match {
-//     case FilePath(x) => x
-//     case Word(w) => w
-//     case _ => "placeholder"
-// }
+import docorg.ir._
 
 def parseDocument(
   stream: InputStream,
-  keywords: List[String] = 
-  List("thesis", "point-and-click", "neoliberal", "paratext", "conclusion"))
-  : XWPFDocument =
+  keywords: List[String]): XWPFDocument =
     val doc: XWPFDocument = new XWPFDocument(stream)
 
     // Paragraphs are sections of information delimited by new lines
@@ -90,24 +84,24 @@ def sortParagraphsIntoSections(
 
         // TODO: Pairwise take lines
         // println(linesPerChunk.size)
-        linesPerChunk.foldLeft[ArrayBuffer[String]](ArrayBuffer.empty)(
-            (before, after) => {
-                var front = ArrayBuffer.empty
-                var back = ArrayBuffer.empty
-                while before.size != 0 and linesLeft != 0 do
-                    front += before.apply(-1) + "."
-                    linesLeft -= 1
-                    if after.size != 0 and linesLeft != 0 then
-                        back += after.apply(0) + "."
-                        linesLeft -= 1
+        // linesPerChunk.foldLeft[ArrayBuffer[String]](ArrayBuffer.empty)(
+        //     (before, after) => {
+        //         var front = ArrayBuffer.empty
+        //         var back = ArrayBuffer.empty
+        //         while before.size != 0 && linesLeft != 0 do
+        //             front += before.apply(-1) + "."
+        //             linesLeft -= 1
+        //             if after.size != 0 && linesLeft != 0 then
+        //                 back += after.apply(0) + "."
+        //                 linesLeft -= 1
                 
-                // construct segment within configuration limits for word
-                val segment = front.foldLeft[String]("")(_ + _) 
-                    + w + back.foldLeft[String]("")(_ + _) 
+        //         // construct segment within configuration limits for word
+        //         val segment = front.foldLeft[String]("")(_ + _) 
+        //             + w + back.foldLeft[String]("")(_ + _) 
 
-                // TODO: consider the rest of the lines as uncategorized
-            }
-        )
+        //         // TODO: consider the rest of the lines as uncategorized
+        //     }
+        // )
 
         // linesPerChunk.toList
 
