@@ -1,6 +1,3 @@
-example program 1: most simple case
-input assumptions: text only.
-/////////////////////////////
 source: essay_brainstorm.txt
 
 keywords:
@@ -9,6 +6,3 @@ keywords:
 - neoliberal
 - paratext
 - conclusion
-/////////////////////////////
-output: "organizer-result.txt" file within the same folder as essay_brainstorm.txt.
-See sample-output-simple for expected info within this file.
