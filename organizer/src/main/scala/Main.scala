@@ -1,11 +1,12 @@
-import org.apache.poi.xwpf.usermodel._
+// import org.apache.poi.xwpf.usermodel._
 import scala.io.Source
-import scala.io.BufferedSource
+// import scala.io.BufferedSource
 import Console.{RED, RESET}
 import util.control.Breaks._
 
-import java.io.InputStream
-import scala.collection.JavaConverters._
+import java.io.{InputStream, FileOutputStream}
+// import scala.collection.JavaConverters._
+// import scala.collection.mutable.{Map, ArrayBuffer}
 
 import docorg.parser._
 import docorg.ir._
@@ -37,19 +38,23 @@ def main(args: String*): Unit =
   // val logger = Logger.getLogger(this.getClass.getName)
   // logger.info("###### logging #####")
 
-  parseSimpleDocument
+  handleDocumentIO()
   // runFile(args(0))
 
-def parseSimpleDocument: Unit = {
+// TODO: add Try to file input and output
+// TODO: get file inputs and outputs to go to non-default locations
+def handleDocumentIO(keywords: List[String] = 
+  List("thesis", "point-and-click", "neoliberal", "paratext", "conclusion")): Unit = {
+  
   // Java's way of creating an InputStream
-  val javaStream: InputStream = main.getClass.getResourceAsStream("sample-input.docx")
-  val doc: XWPFDocument = new XWPFDocument(javaStream)
+  val javaStream: InputStream = main.getClass.getResourceAsStream("sample-input-bulleted.docx")
 
-  // Paragraphs are sections of information delimited by new lines
-  val paragraphs: List[XWPFParagraph] = doc.getParagraphs().asScala.toList
-  println(paragraphs.apply(5).getText())
+  val output = parseDocument(javaStream)
 
-  // close streams for original document
-  doc.close()
+  // Close original stream
   javaStream.close()
+
+  // Write output file
+  val outputStream = new FileOutputStream("generated-sample-output-bulleted.docx")
+  output.write(outputStream)
 }
