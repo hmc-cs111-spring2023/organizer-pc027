@@ -16,22 +16,22 @@ def error(message: String): String =
   s"${RESET}${RED}[Error] ${message}${RESET}"
 
 /** Evaluate an AST, but catch arithmetic exceptions */
-def doEval(config: docorg.ir.Document): Unit =
+def doEval(config: (docorg.ir.Configurations, docorg.ir.OptionalSettings)): Unit =
   try {
     val parsedConfigs = config match {
-      case Configurations(path, keys) => {
-        handleDocumentIO(path, keys)
+      case (Configurations(path, keys), settings) => {
+        handleDocumentIO(path, keys, settings)
       }
-      case _ => throw new IllegalArgumentException
     }
   } catch {
-    case e: Exception => println(error("invalid configuration found"))
+    case e: Exception => throw e
   }
 
 /** Parse a line and potentially evaluate it */
 def parseAndEvalLine(input: String) =
   DocumentParser(input) match
     case DocumentParser.Success(ast, _) => {
+      print(ast)
       doEval(ast)
     }
     case e: DocumentParser.NoSuccess    => println(error(e.toString))
@@ -45,31 +45,30 @@ def runFile(filename: String): Unit =
     case e: java.io.FileNotFoundException => println(error(e.getMessage))
   }
 
-// TODO: add Try to file input and output
 // TODO: get file inputs and outputs to go to non-default locations
 def handleDocumentIO(
   path: String,
-  keywords: List[String]): Unit = {
-  
+  keywords: List[KeySegment],
+  settings: OptionalSettings): Unit = {
   // Java's way of creating an InputStream
-  val javaStream: InputStream = main.getClass.getResourceAsStream(path)
+  try {
+    val javaStream: InputStream = main.getClass.getResourceAsStream(path)
 
-  val output = parseDocument(javaStream, keywords)
+    val output = parseDocument(javaStream, keywords, settings.segLength)
 
-  // Close original stream
-  javaStream.close()
+    // Close original stream
+    javaStream.close()
 
-  // Write output file
-  val outputStream = new FileOutputStream("generated-sample-output-connected.docx")
-  output.write(outputStream)
+    // Write output file
+    val outputStream = new FileOutputStream(settings.outputName)
+    output.write(outputStream)
+  } catch {
+    case e1: java.lang.NullPointerException => throw new NullPointerException(
+      "java.lang.NullPointerException: check input word doc for spelling and location")
+    case e2: Exception => throw new Exception("internal error: "+ e2.getMessage)
+  }
 }
 
 @main
 def main(args: String*): Unit =
-  // BasicConfigurator.configure();
-
-  // val logger = Logger.getLogger(this.getClass.getName)
-  // logger.info("###### logging #####")
-
-  // handleDocumentIO()
   runFile(args(0))
