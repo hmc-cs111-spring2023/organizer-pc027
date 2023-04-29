@@ -18,7 +18,7 @@ https://user-images.githubusercontent.com/63136975/235287027-05c130f0-c764-4ddc-
 ## DSL background
 
 ### Motivation and design decisions
-This project came about as a result of interviewing my friend about her experiences with computers. It began with a discussion of creating an itinerary for a self-planned trip, and we were both quickly reminded of the pain of brainstorming for essays in our college years. Organizer is built with the intention of allowing non-programmers to declare how they want to reorganize files in a familiar way. Therefore, I chose to implement an external DSL to have more flexibility in creating a syntax that feel like writing a wishlist for the look of the organized file.
+This project came about as a result of interviewing my friend about her experiences with computers. It began with a discussion of creating an itinerary for a self-planned trip, and we were both quickly reminded of the pain of brainstorming for essays in our college years. Organizer is built with the intention of allowing anyone who works with .docx, including non-programmers, to declare how they want to reorganize files in a familiar way. Therefore, I chose to implement an external DSL to have more flexibility in creating a syntax that feel like writing a wishlist for the look of the organized file.
 
 ### Future Improvements
 - Wrap the DSL in a user-friendly interface for non-programmers.
