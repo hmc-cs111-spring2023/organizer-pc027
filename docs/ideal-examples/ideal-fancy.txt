@@ -1,0 +1,10 @@
+source: sample-input-synonymize.docx
+
+keywords:
+- thesis, conclusion
+- $process$
+- neoliberal
+
+settings:
+* maximum segment length = 2
+* output file name = essay_brainstorm_organized.docx

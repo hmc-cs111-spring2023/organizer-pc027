@@ -1,0 +1,7 @@
+source: sample-input-bulleted.docx
+
+keywords:
+- thesis, conclusion
+- $PAC$
+- neoliberal
+

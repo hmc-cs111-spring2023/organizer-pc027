@@ -1,4 +1,4 @@
-source: essay_brainstorm.txt
+source: sample-input-bulleted.docx
 
 keywords:
 - thesis
