@@ -14,4 +14,8 @@ To run your program and obtain an output:
 - To exit sb console, press control+c on Mac.
 
 ### Demo
-[placeholder here]
+
+
+
+https://user-images.githubusercontent.com/63136975/235287027-05c130f0-c764-4ddc-b672-c0a01840b035.mp4
+
