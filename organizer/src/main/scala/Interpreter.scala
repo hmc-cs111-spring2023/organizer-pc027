@@ -31,12 +31,6 @@ def sortParagraphsIntoSections(
   keywords: List[KeySegment],
   sectionMap: Map[KeySegment, ArrayBuffer[String]], 
   paragraphs: List[XWPFParagraph]): Unit =
-    // hardcoding line limit for testing for now
-    val lineLimit = 7
-
-    // edit to count lines picked per segment
-    var linesLeft = 7
-
     for p <- paragraphs
     do 
       val text: String = p.getText()

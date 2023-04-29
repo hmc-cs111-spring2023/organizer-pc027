@@ -31,7 +31,7 @@ def doEval(config: (docorg.ir.Configurations, docorg.ir.OptionalSettings)): Unit
 def parseAndEvalLine(input: String) =
   DocumentParser(input) match
     case DocumentParser.Success(ast, _) => {
-      print(ast)
+      // print(ast)
       doEval(ast)
     }
     case e: DocumentParser.NoSuccess    => println(error(e.toString))
@@ -42,7 +42,7 @@ def runFile(filename: String): Unit =
     val input = Source.fromFile(filename).mkString
     parseAndEvalLine(input)
   } catch {
-    case e: java.io.FileNotFoundException => println(error(e.getMessage))
+    case e: java.io.FileNotFoundException => throw e // println(error(e.getMessage))
   }
 
 // TODO: get file inputs and outputs to go to non-default locations
