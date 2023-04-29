@@ -10,8 +10,7 @@ To run your program and obtain an output:
 1. Download sbt to your computer. Instructions to download it can be found [here](https://www.scala-sbt.org/download.html).
 2. Go into the organizer folder (i.e. `cd organizer`)
 3. Run the command in the terminal: `sbt` to open the sbt console
-4. Run the command in the sbt console: `run <path_to_file>`. For example, `sbt run ../docs/ideal-examples/ideal-simple.txt` to run the example ideal-simple program.
-- To exit sb console, press control+c on Mac.
+4. Run the command in the sbt console: `run <path_to_file>`. For example, `sbt run ../docs/ideal-examples/ideal-simple.txt` to run the example ideal-simple program. To exit the sbt console, press `control+c` on Mac.
 
 ### Demo
 
